@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Logged out{% endblock title %}
+
+
+{% block content %}
+  <h1 class="text-center text-4xl text-lime-300 ">Logged out</h1>
+  <br>
+  <div id="module" class="text-xl mx-auto w-4/12 *:mt-2">
+    <p>
+      You have been successfully logged out.
+      You can <a href="{% url "login" %}" class="text-amber-500 hover:text-amber-400 hover:underline">log-in again</a>
+    </p>
+  </div>
+{% endblock content %}
+
+

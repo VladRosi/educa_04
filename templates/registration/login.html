@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block title %}Log-in{% endblock title %}
+
+{% block content %}
+  <h1 class="text-center text-4xl text-lime-300 ">Log-in</h1>
+  <br>
+  <div id="module" class="text-xl mx-auto w-4/12 *:mt-2">
+    {% if form.errors %}
+      <p class="text-rose-300">Your username and password didn't match. Please try again.</p>
+    {% else %}
+      <p class="text-blue-300">Please, use the following form to log-in:</p>
+    {% endif %}
+    <div id="login-form">
+      <form action="{% url "login" %}" method="post" >
+        {{ form|crispy }}
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <p><input type="submit" value="Log-in" class="px-3 py-2 bg-emerald-900 hover:bg-emerald-800 rounded-xl my-2"></p>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

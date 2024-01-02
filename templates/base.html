@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+{% load static tailwind_tags %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% tailwind_css %}
+  <title>{% block title %}Educa{% endblock title %}</title>
+</head>
+<body class="bg-neutral-900 text-white"> 
+
+  <div id="header" class="flex h-[50px] bg-emerald-900 text-2xl *:place-self-center px-3">
+    <a id="logo" href="/" class="text-purple-300">Educa</a>
+    
+    <ul id="menu" class="flex ms-auto text-yellow-500 hover:text-yellow-300">
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url "logout" %}">Sign out</a></li>
+      {% else %}
+        <li><a href="{% url "login" %}">Sign in</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div id="content" class="w-11/12 mx-auto my-5 p-5 rounded-xl min-h-[100vh] bg-slate-800 ">
+      {% block content %}
+      {% endblock content %}
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      // DOM-model was loaded
+      {% block domready %}
+      {% endblock domready %}
+    })
+  </script>
+</body>
+</html>
