@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block title %}Edit "{{ course.title }}"{% endblock title %}
+
+{% block content %}
+  <h1 class="title-1">Edit "{{ course.title }}"</h1>
+  <br>
+  <div id="module">
+    <h2 class="title-2">Course modules</h2>
+    <form method="post" class="formset" >
+      {% csrf_token %}
+        {{ formset }}
+      {{ formset.management_form }}
+      <br>
+      <input type="submit" value="Save modules" class="btn">
+    </form>
+  </div>
+{% endblock content %}

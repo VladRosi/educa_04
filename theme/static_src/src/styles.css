@@ -1,3 +1,98 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form {
+    @apply bg-slate-700 px-5 py-4 rounded-xl;
+  }
+
+  .form p select {
+    @apply text-black rounded-xl;
+  }
+
+  .form p input {
+    @apply text-black rounded-xl;
+  }
+
+  .form p textarea {
+    @apply text-black rounded-xl;
+  }
+
+  .form p label {
+    @apply after:block;
+  }
+
+  .formset {
+    @apply rounded-xl;
+  }
+
+  .formset div {
+    @apply bg-slate-700 px-5 py-1 ;
+  }
+
+  .formset div select {
+    @apply text-black rounded-xl;
+  }
+
+  .formset div input {
+    @apply text-black rounded-xl;
+  }
+
+  .formset div textarea {
+    @apply text-black rounded-xl;
+  }
+
+  .formset div label {
+    @apply after:block;
+  }
+
+  .p {
+    @apply text-xl;
+  }
+
+  .btn {
+    @apply px-3 py-2 bg-blue-600 hover:bg-blue-400 text-white rounded-lg cursor-pointer;
+  }
+
+  .create-btn {
+    @apply px-3 py-2 bg-lime-600 hover:bg-lime-400 text-white rounded-lg cursor-pointer;
+  }
+
+  .edit-btn {
+    @apply px-3 py-2 bg-purple-600 hover:bg-purple-400 text-white rounded-lg cursor-pointer;
+  }
+
+  .delete-btn {
+    @apply px-3 py-2 bg-rose-600 hover:bg-rose-400 text-white rounded-lg cursor-pointer;
+  }
+
+  .title-1 {
+    @apply text-center text-4xl text-[rgb(255,255,64)];
+  }
+
+  .title-2 {
+    @apply text-center text-3xl text-purple-600;
+  }
+
+  .title-3 {
+    @apply text-center text-2xl text-[rgb(127,255,127)];
+  }
+
+  .title-4 {
+    @apply text-center text-xl text-[rgb(79,236,236)];
+  }
+
+  .add-new-content {
+    @apply flex flex-wrap my-5 justify-evenly;
+  }
+
+  .add-new-content a {
+    @apply bg-blue-800 px-5 py-4 mx-5 hover:bg-blue-700; 
+  }
+
+  .placeholder {
+    @apply border border-dashed;
+  }
+}
+

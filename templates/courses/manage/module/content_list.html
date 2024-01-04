@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load course %}
+
+{% block title %}
+  Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock title %}
+
+{% block content %}
+  {% with course=module.course %}
+    <h1 class="title-1">Course "{{ course.title }}"</h1>
+    <br>
+    <div class="grid grid-cols-3 gap-2">
+
+    <div id="contents" class="col-span-1 bg-slate-900 min-h-[100vh] p-3">
+      <h3 class="title-2">Modules</h3>
+      <br>
+      <ul id="modules" class="text-center">
+        {% for m in course.modules.all %}
+          <li data-id="{{ m.id }}" 
+          class=" p-3 m-1
+          {% if m == module %}bg-teal-800 {% else %}bg-slate-800 hover:bg-blue-800 {% endif %} 
+          ">
+            <a href="{% url "module_content_list" m.id %}">
+              <span class="text-slate-500 text-sm">
+                Module <span class="order">{{ m.order|add:1 }}</span>
+              </span>
+              <br>
+              {{ m.title }}
+            </a>
+          </li>
+        {% empty %}
+          <li class="title-3">No modules yet.</li>
+        {% endfor %}
+      </ul>
+      <hr>
+      <br>
+      <p class="text-end"><a href="{% url "course_module_update" course.id %}" class="edit-btn ">Edit modules</a></p>
+      <br>
+    </div>
+
+    <div class="p col-span-2">
+      <h2 class="title-2">Module {{ module.order|add:1 }}: {{ module.title }}</h2>
+      <br>
+      <h3 class="title-3">Module contents:</h3>
+      <div id="module-contents">
+        {% for content in module.contents.all %}
+          <div data-id="{{ content.id }}" class="bg-green-900 my-2 p-2 model-content">
+            {% with item=content.item %}
+              <p>{{ item }} ({{ item|model_name }})</p>
+              <div class="flex">
+                <a href="{% url "module_content_update" module.id item|model_name item.id %}" class="edit-btn ms-auto me-1">Edit</a>
+                <form action="{% url "module_content_delete" content.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete" class="delete-btn">
+                </form>
+              </div>
+            {% endwith %}
+          </div>
+        {% empty %}
+          <p class="title-4">This module has not content yet.</p>
+        {% endfor %}
+      </div>
+
+      <br>
+      <h3 class="title-2">Add new content:</h3>
+      <ul class="add-new-content">
+        <li>
+          <a href="{% url "module_content_create" module.id "text" %}">Text</a>
+        </li>
+        <li>
+          <a href="{% url "module_content_create" module.id "image" %}">Image</a>
+        </li>
+        <li>
+          <a href="{% url "module_content_create" module.id "video" %}">Video</a>
+        </li>
+        <li>
+          <a href="{% url "module_content_create" module.id "file" %}">File</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  {% endwith %}
+{% endblock content %}
+
+{% block include_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5sortable/0.13.3/html5sortable.min.js"></script>
+{% endblock include_js %}
+
+{% block domready %}
+  var options = {
+    method: 'POST',
+    mode: 'same-origin'
+  }
+
+  const moduleOrderUrl = '{% url "module_order" %}'
+
+  sortable('#modules', {
+    forcePlaceholderSize: true, 
+    placeholderClass: 'placeholder',
+  })[0].addEventListener('sortupdate', function(e) {
+    modulesOrder = {}
+    var modules = document.querySelectorAll('#modules li')
+    modules.forEach(function(module, index) {
+      // update module's index 
+      modulesOrder[module.dataset.id] = index
+      // update index in the HTML-element
+      module.querySelector('.order').innerHTML = index + 1
+      // add the new order in the HTTP request options
+      options['body'] = JSON.stringify(modulesOrder)
+
+      // send HTTP request
+      fetch(moduleOrderUrl, options)
+
+    })
+  })
+
+  const contentOrderUrl = '{% url "content_order" %}'
+  sortable('#module-contents', {
+    forcePlaceholderSize: true,
+    placeholderClass: 'placeholder'
+  })[0].addEventListener('sortupdate', (e) => {
+    contentOrder = {}
+    var contents = document.querySelectorAll('#module-contents .model-content')
+    contents.forEach((content, idx) => {
+      // update content's index
+      contentOrder[content.dataset.id] = idx
+      // add new order to the HTTP request options 
+      options['body'] = JSON.stringify(contentOrder)
+      
+
+      // send the HTTP request
+      fetch(contentOrderUrl, options)
+    })
+  })
+{% endblock domready %}

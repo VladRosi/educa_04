@@ -3,7 +3,7 @@
 {% block title %}Log-in{% endblock title %}
 
 {% block content %}
-  <h1 class="text-center text-4xl text-lime-300 ">Log-in</h1>
+  <h1 class="title ">Log-in</h1>
   <br>
   <div id="module" class="text-xl mx-auto w-4/12 *:mt-2">
     {% if form.errors %}
@@ -13,7 +13,9 @@
     {% endif %}
     <div id="login-form">
       <form action="{% url "login" %}" method="post" >
-        {{ form|crispy }}
+        <div class="text-green-900">
+          {{ form|crispy }}
+        </div>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         <p><input type="submit" value="Log-in" class="px-3 py-2 bg-emerald-900 hover:bg-emerald-800 rounded-xl my-2"></p>

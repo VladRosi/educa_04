@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+
+{% block title %}
+  {% if object %}
+    Edit course "{{ object.title }}"
+  {% else %}
+    Create a new course
+  {% endif %}
+{% endblock title %}
+
+{% block content %}
+  <h1 class="title-1">
+    {% if object %}
+      Edit course "{{ object.title }}"
+    {% else %}
+      Create a new course
+    {% endif %}
+  </h1>
+  <br>
+
+  <div id="module">
+    <h2 class="title-2">Course info</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form">{{ form.as_p }}</div>
+      <br>
+      <input type="submit" value="Save course" class="btn">
+    </form>
+  </div>
+{% endblock content %}

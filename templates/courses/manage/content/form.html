@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if object %}
+    Edit content {{ object.title }}
+  {% else %}
+    Add new content
+  {% endif %}
+{% endblock title %}
+
+
+{% block content %}
+  <h1 class="title-1">
+    {% if object %}
+      Edit content {{ object.title }}
+    {% else %}
+      Add new content
+    {% endif %}
+  </h1>
+  <br>
+  <div id="module">
+    <h2 class="title-2">Course info</h2>
+    <form  method="post" enctype="mulitpart/form-data" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save content" class="btn">
+    </form>
+  </div>
+{% endblock content %}
