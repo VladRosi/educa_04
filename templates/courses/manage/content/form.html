@@ -20,7 +20,7 @@
   <br>
   <div id="module">
     <h2 class="title-2">Course info</h2>
-    <form  method="post" enctype="mulitpart/form-data" class="form">
+    <form  method="post" enctype="multipart/form-data" class="form">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Save content" class="btn">

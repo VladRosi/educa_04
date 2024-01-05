@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load cache %}
+{% block title %}{{ object.title }}{% endblock title %}
+
+{% block content %}
+  <h1 class="title-1">{{ object.title }}</h1>
+  <br>
+  <div class="my-split">
+    <div class="sidebar">
+      <h3 class="title-2">Modules</h3>
+      <br>
+      <ul id="modules">
+        {% for m in object.modules.all %}
+          <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+              <a href="{% url "student_course_detail_module" object.id m.id %}">
+                <span>
+                  Module <span class="order">{{ m.order|add:1 }}</span>
+                </span>
+                <br>
+                {{ m.title }}
+              </a>
+          </li>
+        {% empty %}
+          <br>
+          <li class="title-3">No modules yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="text-center ">
+      {% cache 600 module_contents module %}
+        {% for content in module.contents.all %}
+          <div class="item">
+            {% with item=content.item %}
+              <h2 class="title-3">{{ item.title }}</h2>
+              <br>
+              <div>
+                {{ item.render }}
+              </div>
+            {% endwith %}
+          </div>
+        {% endfor %}
+      {% endcache %}
+    </div>
+
+  </div>
+{% endblock content %}
+

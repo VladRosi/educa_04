@@ -3,6 +3,34 @@
 @tailwind utilities;
 
 @layer components {
+  .sidebar {
+    @apply bg-slate-900 min-h-[100vh] p-3 text-center;
+  }
+
+  .sidebar>ul>li {
+    @apply p-3 m-1 bg-slate-800 hover:bg-blue-800 cursor-pointer;
+  }
+
+  .sidebar>ul>.selected {
+    @apply bg-teal-800 hover:bg-teal-800 cursor-default;
+  }
+
+  .my-split {
+    @apply grid grid-cols-3 gap-2;
+  }
+
+  .my-split div:first-child {
+    @apply col-span-1;
+  }
+
+  .my-split div:last-child {
+    @apply col-span-2;
+  }
+
+  .item {
+    @apply bg-neutral-900 p-3 mb-2;
+  }
+
   .form {
     @apply bg-slate-700 px-5 py-4 rounded-xl;
   }
@@ -13,6 +41,19 @@
 
   .form p input {
     @apply text-black rounded-xl;
+  }
+
+  .form p>span,
+  .form>ul {
+    @apply text-slate-500 text-sm;
+  }
+
+  .form p {
+    @apply mt-5;
+  }
+
+  .form span {
+    @apply block;
   }
 
   .form p textarea {
@@ -28,7 +69,7 @@
   }
 
   .formset div {
-    @apply bg-slate-700 px-5 py-1 ;
+    @apply bg-slate-700 px-5 py-1;
   }
 
   .formset div select {
@@ -68,7 +109,7 @@
   }
 
   .title-1 {
-    @apply text-center text-4xl text-[rgb(255,255,64)];
+    @apply text-center text-4xl text-yellow-500;
   }
 
   .title-2 {
@@ -76,11 +117,11 @@
   }
 
   .title-3 {
-    @apply text-center text-2xl text-[rgb(127,255,127)];
+    @apply text-center text-2xl text-green-500;
   }
 
   .title-4 {
-    @apply text-center text-xl text-[rgb(79,236,236)];
+    @apply text-center text-xl text-teal-300;
   }
 
   .add-new-content {
@@ -88,11 +129,14 @@
   }
 
   .add-new-content a {
-    @apply bg-blue-800 px-5 py-4 mx-5 hover:bg-blue-700; 
+    @apply bg-blue-800 px-5 py-4 mx-5 hover:bg-blue-700;
   }
 
   .placeholder {
     @apply border border-dashed;
   }
-}
 
+  .link {
+    @apply text-blue-500 hover:text-blue-400 hover:underline;
+  }
+}
