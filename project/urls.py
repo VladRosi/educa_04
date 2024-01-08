@@ -13,6 +13,7 @@ urlpatterns = [
   path('accounts/logout/', logout_view, name='logout'),
   path('course/', include('courses.urls')),
   path('students/', include('students.urls')),
+  path('api/', include('courses.api.urls', namespace='api')),
   path("__reload__/", include("django_browser_reload.urls")),
   path('__debug__/', include('debug_toolbar.urls')),
   path('', CourseListView.as_view(), name='course_list'),
