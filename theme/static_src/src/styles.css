@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 @layer components {
+  .me {
+    @apply ms-auto me-2 mt-2;
+  }
+
+  .other {
+    @apply ms-2 mt-2;
+  }
+
+  .date {
+    @apply text-slate-600 italic text-sm;
+  }
+
   .sidebar {
     @apply bg-slate-900 min-h-[100vh] p-3 text-center;
   }

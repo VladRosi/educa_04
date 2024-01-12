@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+  'daphne',
+  'chat',
   'courses.apps.CoursesConfig',
   "django.contrib.admin",
   "django.contrib.auth",
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
   'debug_toolbar',
   'redisboard',
   'rest_framework',
+  'channels',
 ]
 
 MIDDLEWARE = [
@@ -171,4 +174,17 @@ REST_FRAMEWORK = {
   'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
   ]
+}
+
+# ASGI_APPLICATION = 'project.asgi.application'
+ASGI_APPLICATION = 'project.asgi.application'
+# ASGI_APPLICATION = 'chat.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
 }

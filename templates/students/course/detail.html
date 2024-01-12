@@ -24,10 +24,13 @@
           <br>
           <li class="title-3">No modules yet.</li>
         {% endfor %}
+        <li>
+          <a href="{% url "chat:course_chat_room" object.id %}" class="success-btn">Course chat room</a>
+        </li>
       </ul>
     </div>
 
-    <div class="text-center ">
+    <div class="text-center">
       {% cache 600 module_contents module %}
         {% for content in module.contents.all %}
           <div class="item">
